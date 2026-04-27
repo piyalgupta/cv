@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Piyal Gupta — CV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ── Brand Variables (Kneuralabs v1.0) ──────────────────────────── */
+:root {
+  --cyan:      #00F0FF;
+  --cyan-dim:  #00B8C9;
+  --cyan-ghost:#D6FBFF;
+  --charcoal:  #141414;
+  --near-black:#0A141F;
+  --deep-navy: #204376;
+  --steel:     #8A9BB5;
+  --steel-teal:#468DA3;
+  --crimson:   #C5062A;
+  --elec-blue: #0A98D9;
+  --emerald:   #00B871;
+  --amber:     #F6A623;
+  --smoke:     #EEF1F5;
+  /* Layout */
+  --bg:        #ffffff;
+  --card:      #ffffff;
+  --rule:      #E5EAF0;
+  --tag-bg:    #F4F7FB;
+  --ink:       #141414;
+  --ink-2:     #204376;
+  --ink-3:     #8A9BB5;
+  --ink-4:     #C8D0DB;
+  --link:      #0A98D9;
+  --copy-ok:   #00B871;
+  --sans:      'Inter', Arial, sans-serif;
+  --mono:      'JetBrains Mono', 'Courier New', monospace;
+  --ease:      cubic-bezier(.4,0,.2,1);
+  --shadow:    0 1px 4px rgba(10,20,31,.06), 0 4px 20px rgba(10,20,31,.08);
+  --r:         6px;
+}
+[data-theme="dark"] {
+  --bg:        #0A141F;
+  --card:      #111B27;
+  --rule:      #1E2D40;
+  --tag-bg:    #162030;
+  --ink:       #E8EDF3;
+  --ink-2:     #A0B4C8;
+  --ink-3:     #5A7A96;
+  --ink-4:     #2A3D52;
+  --link:      #00F0FF;
+  --shadow:    0 1px 4px rgba(0,0,0,.3), 0 4px 20px rgba(0,0,0,.4);
+}
+
+/* ── Reset ──────────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.65;transition:background .3s,color .3s;min-height:100vh}
+
+/* ── Animations ─────────────────────────────────────────────────── */
+@keyframes fadeUp  {from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes checkPop{0%{transform:scale(0)}70%{transform:scale(1.3)}100%{transform:scale(1)}}
+@keyframes tlPulse {0%,100%{box-shadow:0 0 0 0 rgba(0,240,255,.4)}50%{box-shadow:0 0 0 6px rgba(0,240,255,0)}}
+
+.reveal{opacity:0;animation:fadeUp .5s var(--ease) forwards}
+.reveal-1{animation-delay:.04s}.reveal-2{animation-delay:.10s}
+.reveal-3{animation-delay:.16s}.reveal-4{animation-delay:.22s}
+.reveal-5{animation-delay:.28s}.reveal-6{animation-delay:.34s}
+.reveal-7{animation-delay:.40s}.reveal-8{animation-delay:.46s}
+
+/* ── Sticky bar ─────────────────────────────────────────────────── */
+#sticky{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:var(--card);border-bottom:2px solid var(--cyan);
+  padding:.6rem clamp(1rem,4vw,3rem);
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  transform:translateY(-100%);transition:transform .3s var(--ease);
+}
+#sticky.visible{transform:translateY(0)}
+.sticky-name{font-family:var(--sans);font-size:.9rem;font-weight:700;color:var(--ink);letter-spacing:-.01em}
+.sticky-brand{font-family:var(--mono);font-size:.65rem;font-weight:500;color:var(--cyan);letter-spacing:.1em;margin-left:.5rem}
+.sticky-nav{display:flex;gap:.2rem;flex-wrap:wrap}
+.sticky-nav a{
+  font-size:.7rem;font-weight:500;color:var(--ink-3);
+  padding:.28rem .6rem;border-radius:4px;text-decoration:none;
+  transition:background .15s,color .15s;white-space:nowrap;
+}
+.sticky-nav a:hover,.sticky-nav a.active{background:var(--cyan-ghost);color:var(--deep-navy)}
+[data-theme="dark"] .sticky-nav a:hover,[data-theme="dark"] .sticky-nav a.active{background:rgba(0,240,255,.12);color:var(--cyan)}
+
+/* ── Controls ───────────────────────────────────────────────────── */
+.controls{position:fixed;bottom:1.5rem;right:1.5rem;z-index:99;display:flex;flex-direction:column;gap:.45rem}
+.ctrl-btn{
+  width:2.4rem;height:2.4rem;border-radius:50%;border:1px solid var(--rule);
+  background:var(--card);color:var(--ink-3);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.85rem;box-shadow:var(--shadow);
+  transition:transform .15s,background .15s,border-color .15s;
+}
+.ctrl-btn:hover{transform:scale(1.12);border-color:var(--cyan);color:var(--ink)}
+
+/* ── Shell ──────────────────────────────────────────────────────── */
+.shell{display:flex;justify-content:center;padding:clamp(1.5rem,5vw,4rem) clamp(1rem,4vw,2.5rem)}
+.page{width:100%;max-width:860px}
+
+/* ── Header ─────────────────────────────────────────────────────── */
+.cv-header{
+  background:var(--near-black);border-radius:var(--r);
+  padding:clamp(1.75rem,5vw,3rem) clamp(1.5rem,5vw,3rem);
+  margin-bottom:1.25rem;box-shadow:0 2px 24px rgba(0,240,255,.12);
+  position:relative;overflow:hidden;
+}
+.cv-header::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--cyan) 0%,var(--elec-blue) 50%,var(--steel-teal) 100%);
+}
+.cv-header::after{
+  content:'';position:absolute;bottom:-60px;right:-60px;
+  width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,240,255,.06) 0%,transparent 70%);
+  pointer-events:none;
+}
+.cv-name{
+  font-size:clamp(2rem,6vw,3.4rem);font-weight:900;
+  letter-spacing:-.03em;color:#ffffff;line-height:1.05;margin-bottom:.25rem;
+}
+.cv-tagline{
+  font-family:var(--mono);font-size:clamp(.75rem,2vw,.88rem);font-weight:400;
+  color:var(--cyan);margin-bottom:1.5rem;letter-spacing:.04em;
+}
+.cv-contact{display:flex;flex-wrap:wrap;gap:.4rem .05rem;align-items:center}
+.contact-item{display:flex;align-items:center;gap:.3rem;font-size:clamp(.75rem,1.7vw,.82rem)}
+.contact-item a{color:#A0C4FF;text-decoration:none;transition:color .15s}
+.contact-item a:hover{color:var(--cyan)}
+.contact-copy{
+  background:none;border:none;cursor:pointer;padding:2px 4px;border-radius:3px;
+  font-size:.65rem;color:rgba(255,255,255,.3);transition:color .15s;line-height:1;
+}
+.contact-copy:hover{color:var(--cyan)}
+.contact-copy.copied{color:var(--copy-ok);animation:checkPop .3s var(--ease)}
+.sep{color:rgba(255,255,255,.2);font-size:.8rem;padding:0 .3rem}
+
+/* ── Section card ───────────────────────────────────────────────── */
+.section-card{
+  background:var(--card);border:1px solid var(--rule);border-radius:var(--r);
+  margin-bottom:1.25rem;box-shadow:var(--shadow);overflow:hidden;
+  transition:background .3s,border-color .3s;
+}
+.section-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.9rem clamp(1.25rem,4vw,2rem);cursor:pointer;
+  border-bottom:1px solid var(--rule);user-select:none;transition:background .15s;
+}
+.section-head:hover{background:var(--tag-bg)}
+.section-label{
+  font-family:var(--mono);font-size:.62rem;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--cyan-dim);
+}
+.section-toggle{
+  font-size:.7rem;color:var(--ink-4);transition:transform .3s var(--ease);
+  width:1.3rem;height:1.3rem;display:flex;align-items:center;justify-content:center;
+  border-radius:50%;background:var(--tag-bg);flex-shrink:0;
+}
+.section-card.collapsed .section-toggle{transform:rotate(-90deg)}
+.section-body{padding:1.25rem clamp(1.25rem,4vw,2rem) 1.5rem;transition:all .3s var(--ease)}
+.section-card.collapsed .section-body{display:none}
+
+/* ── Profile ────────────────────────────────────────────────────── */
+.profile-text{font-size:clamp(.875rem,2vw,.975rem);color:var(--ink-2);max-width:68ch;line-height:1.8;font-weight:400}
+
+/* ── Competencies ───────────────────────────────────────────────── */
+.competencies{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:.4rem}
+.competency{
+  display:flex;align-items:center;gap:.5rem;
+  font-size:clamp(.78rem,1.8vw,.85rem);color:var(--ink);font-weight:500;
+  background:var(--tag-bg);padding:.5rem .9rem;border-radius:var(--r);
+  border:1px solid var(--rule);transition:border-color .15s,transform .15s;cursor:default;
+}
+.competency:hover{border-color:var(--cyan-dim);transform:translateY(-1px)}
+.competency::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--cyan);flex-shrink:0}
+
+/* ── Experience section ─────────────────────────────────────────── */
+.view-toggle{
+  display:flex;gap:.25rem;padding:.7rem clamp(1.25rem,4vw,2rem);
+  border-bottom:1px solid var(--rule);background:var(--tag-bg);
+}
+.vt-btn{
+  font-family:var(--mono);font-size:.65rem;font-weight:500;color:var(--ink-3);
+  padding:.28rem .7rem;border-radius:4px;border:1px solid transparent;
+  cursor:pointer;background:none;transition:all .18s;letter-spacing:.05em;
+}
+.vt-btn.active{background:var(--card);color:var(--ink);border-color:var(--rule);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+
+/* ── List view ──────────────────────────────────────────────────── */
+.role{padding:1.1rem 0;border-bottom:1px solid var(--rule)}
+.role:last-child{border-bottom:none;padding-bottom:0}
+.role-meta{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:.1rem 1rem;margin-bottom:2px}
+.role-title{font-size:clamp(.92rem,2.2vw,1.05rem);font-weight:700;color:var(--ink)}
+.role-date{font-family:var(--mono);font-size:.68rem;color:var(--ink-3);white-space:nowrap;font-weight:400;flex-shrink:0}
+.role-org{font-size:.78rem;color:var(--ink-3);margin-bottom:.5rem;font-weight:400}
+.role-org strong{color:var(--deep-navy);font-weight:600}
+[data-theme="dark"] .role-org strong{color:var(--steel-teal)}
+.role-bullets{list-style:none;display:flex;flex-direction:column;gap:.3rem}
+.role-bullets li{
+  font-size:clamp(.78rem,1.8vw,.855rem);color:var(--ink-2);
+  padding-left:1.2em;position:relative;line-height:1.65;
+}
+.role-bullets li::before{content:"–";position:absolute;left:0;color:var(--cyan-dim)}
+
+/* ── Interactive Timeline ───────────────────────────────────────── */
+#timeline-view{display:none;position:relative;padding:0}
+
+.tl-spine{
+  position:absolute;left:calc(clamp(1.25rem,4vw,2rem) + 2.8rem);
+  top:0;bottom:0;width:2px;
+  background:linear-gradient(180deg,var(--cyan) 0%,var(--elec-blue) 50%,var(--steel-teal) 100%);
+  opacity:.3;
+}
+
+.tl-item{
+  position:relative;
+  padding:1rem clamp(1.25rem,4vw,2rem) 1rem calc(clamp(1.25rem,4vw,2rem) + 5.5rem);
+  cursor:pointer;
+  border-bottom:1px solid var(--rule);
+  transition:background .15s;
+}
+.tl-item:last-child{border-bottom:none}
+.tl-item:hover{background:var(--tag-bg)}
+.tl-item.active{background:var(--tag-bg)}
+.tl-item.active .tl-dot{background:var(--cyan);box-shadow:0 0 0 4px rgba(0,240,255,.2);animation:tlPulse 2s ease infinite}
+
+.tl-year-badge{
+  position:absolute;left:clamp(1.25rem,4vw,2rem);top:1.05rem;
+  font-family:var(--mono);font-size:.6rem;font-weight:700;
+  color:var(--cyan-dim);line-height:1.2;text-align:right;width:2.4rem;
+}
+
+.tl-dot{
+  position:absolute;
+  left:calc(clamp(1.25rem,4vw,2rem) + 2.8rem);
+  top:1.4rem;
+  width:10px;height:10px;border-radius:50%;
+  background:var(--ink-4);border:2px solid var(--card);
+  transform:translateX(-50%);
+  transition:background .2s,box-shadow .2s;
+  z-index:2;
+}
+
+.tl-header{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
+.tl-role{font-size:clamp(.88rem,2vw,1rem);font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:.1rem}
+.tl-org{font-size:.75rem;color:var(--ink-3);margin-bottom:.15rem;font-weight:400}
+.tl-org strong{color:var(--deep-navy);font-weight:600}
+[data-theme="dark"] .tl-org strong{color:var(--steel-teal)}
+.tl-chevron{
+  font-size:.65rem;color:var(--ink-4);flex-shrink:0;
+  width:1.2rem;height:1.2rem;border-radius:50%;background:var(--tag-bg);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .25s var(--ease),background .15s;margin-top:.1rem;
+}
+.tl-item.active .tl-chevron{transform:rotate(180deg);background:var(--cyan-ghost);color:var(--cyan-dim)}
+[data-theme="dark"] .tl-item.active .tl-chevron{background:rgba(0,240,255,.12);color:var(--cyan)}
+
+.tl-detail{
+  max-height:0;overflow:hidden;
+  transition:max-height .35s var(--ease),opacity .3s;
+  opacity:0;
+}
+.tl-item.active .tl-detail{max-height:400px;opacity:1;margin-top:.6rem}
+.tl-bullets{list-style:none;display:flex;flex-direction:column;gap:.3rem}
+.tl-bullets li{
+  font-size:clamp(.77rem,1.7vw,.84rem);color:var(--ink-2);
+  padding-left:1.1em;position:relative;line-height:1.65;
+}
+.tl-bullets li::before{content:"–";position:absolute;left:0;color:var(--cyan-dim)}
+
+.tl-tag{
+  display:inline-flex;align-items:center;gap:.25rem;
+  font-family:var(--mono);font-size:.58rem;font-weight:700;
+  padding:.15rem .45rem;border-radius:3px;
+  background:rgba(0,240,255,.08);color:var(--cyan-dim);
+  border:1px solid rgba(0,240,255,.15);margin-top:.4rem;
+  letter-spacing:.04em;
+}
+.tl-tag.current{background:rgba(0,184,113,.08);color:#00B871;border-color:rgba(0,184,113,.2)}
+
+/* ── Certifications ─────────────────────────────────────────────── */
+.cert-group{margin-bottom:1.25rem}
+.cert-group:last-child{margin-bottom:0}
+.cert-issuer{
+  font-size:.78rem;font-weight:700;color:var(--ink);
+  margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;
+}
+.cert-issuer small{font-size:.7rem;font-weight:400;color:var(--ink-3);font-family:var(--mono)}
+.cert-badge{
+  display:inline-flex;align-items:center;
+  font-family:var(--mono);font-size:.6rem;padding:.15rem .45rem;border-radius:3px;
+  background:rgba(0,240,255,.08);color:var(--cyan-dim);border:1px solid rgba(0,240,255,.2);
+}
+.cert-list{display:flex;flex-direction:column}
+.cert-row{
+  display:grid;grid-template-columns:1fr auto auto;gap:.5rem 1rem;align-items:center;
+  font-size:clamp(.75rem,1.7vw,.82rem);padding:.5rem 0;
+  border-bottom:1px solid var(--rule);transition:background .12s,padding .12s;cursor:default;
+}
+.cert-row:last-child{border-bottom:none}
+.cert-row:hover{background:var(--tag-bg);margin:0 -.75rem;padding:.5rem .75rem;border-radius:4px}
+.cert-name{color:var(--ink-2);font-weight:400}
+.cert-date{color:var(--ink-3);white-space:nowrap;font-weight:300;font-size:.7rem;font-family:var(--mono)}
+.cert-id{color:var(--ink-4);font-size:.65rem;font-family:var(--mono);text-align:right;white-space:nowrap}
+
+/* ── Education ──────────────────────────────────────────────────── */
+.edu-row{
+  display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;
+  gap:.2rem 1rem;padding:.65rem 0;border-bottom:1px solid var(--rule);
+  font-size:clamp(.8rem,1.8vw,.88rem);
+}
+.edu-row:last-child{border-bottom:none}
+.edu-degree{color:var(--ink);font-weight:600}
+.edu-inst{color:var(--ink-3);font-size:.75rem;font-weight:400;display:block;margin-top:1px}
+.edu-year{font-family:var(--mono);color:var(--ink-3);font-size:.72rem;white-space:nowrap;font-weight:400;flex-shrink:0}
+
+/* ── Recognition ────────────────────────────────────────────────── */
+.recognition{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:.4rem}
+.rec-item{
+  font-size:clamp(.78rem,1.8vw,.85rem);color:var(--ink-2);
+  background:var(--tag-bg);padding:.55rem .9rem;border-radius:var(--r);
+  border:1px solid var(--rule);display:flex;gap:.4rem;align-items:flex-start;
+  transition:border-color .15s,transform .15s;font-weight:400;
+}
+.rec-item:hover{border-color:var(--cyan-dim);transform:translateY(-1px)}
+.rec-item::before{content:"✦";color:var(--cyan-dim);flex-shrink:0;font-size:.55rem;margin-top:.18rem}
+
+/* ── Print ──────────────────────────────────────────────────────── */
+@media print{
+  #sticky,.controls,.view-toggle,.section-toggle{display:none!important}
+  body{background:#fff;color:#000}
+  .cv-header{background:#0A141F;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .section-card,.cv-header{box-shadow:none;border:1px solid #ddd}
+  .section-card.collapsed .section-body{display:block!important}
+  #timeline-view{display:none!important}
+  #list-view{display:block!important}
+  .shell{padding:0}
+}
+
+/* ── Responsive ─────────────────────────────────────────────────── */
+@media(max-width:480px){
+  .shell{padding:0}
+  .cv-header,.section-card{border-radius:0}
+  .cert-row{grid-template-columns:1fr;gap:1px}
+  .cert-id{display:none}
+  .sep{display:none}
+  .cv-contact{flex-direction:column;gap:.35rem}
+  .sticky-nav{display:none}
+  #sticky{padding:.5rem 1rem}
+  .controls{bottom:1rem;right:1rem}
+  .tl-item{padding-left:calc(clamp(1.25rem,4vw,2rem) + 4rem)}
+  .tl-year-badge{width:2rem;font-size:.55rem}
+}
+@media(min-width:481px) and (max-width:767px){
+  .cert-id{display:none}
+  .shell{padding:1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<div id="sticky">
+  <div style="display:flex;align-items:center;gap:.25rem">
+    <span class="sticky-name">Piyal Gupta</span>
+    <span class="sticky-brand">// KNEURALABS</span>
+  </div>
+  <nav class="sticky-nav" aria-label="Jump to section">
+    <a href="#sec-profile">Profile</a>
+    <a href="#sec-competencies">Skills</a>
+    <a href="#sec-experience">Experience</a>
+    <a href="#sec-certifications">Certs</a>
+    <a href="#sec-education">Education</a>
+  </nav>
+</div>
+
+<!-- FLOATING CONTROLS -->
+<div class="controls" role="group" aria-label="CV controls">
+  <button class="ctrl-btn" id="theme-btn" title="Toggle theme" aria-label="Toggle dark mode">🌙</button>
+  <button class="ctrl-btn" id="print-btn" title="Print / Save PDF" aria-label="Print">⬇</button>
+  <button class="ctrl-btn" id="expand-btn" title="Expand/collapse all" aria-label="Expand all">＋</button>
+</div>
+
+<div class="shell">
+<main class="page" role="main">
+
+  <!-- HEADER -->
+  <header class="cv-header reveal reveal-1" id="top">
+    <h1 class="cv-name">Piyal Gupta</h1>
+    <p class="cv-tagline">// I MAKE AI GOVERNABLE.</p>
+    <div class="cv-contact">
+      <span class="contact-item">
+        <a href="mailto:piyal@outlook.com">piyal@outlook.com</a>
+        <button class="contact-copy" data-copy="piyal@outlook.com" title="Copy email">⎘</button>
+      </span>
+      <span class="sep">·</span>
+      <span class="contact-item">
+        <a href="tel:+919874174100">+91 98741 74100</a>
+        <button class="contact-copy" data-copy="+919874174100" title="Copy number">⎘</button>
+      </span>
+      <span class="sep">·</span>
+      <span class="contact-item">
+        <a href="https://linkedin.com/in/piyal" target="_blank" rel="noopener">linkedin.com/in/piyal</a>
+      </span>
+      <span class="sep">·</span>
+      <span class="contact-item">
+        <a href="https://kneuralabs.com" target="_blank" rel="noopener">kneuralabs.com</a>
+      </span>
+      <span class="sep">·</span>
+      <span class="contact-item" style="color:rgba(255,255,255,.45);font-size:.75rem">Kolkata, India · Connecticut, USA</span>
+    </div>
+  </header>
+
+  <!-- PROFILE -->
+  <section class="section-card reveal reveal-2" id="sec-profile">
+    <div class="section-head" role="button" tabindex="0" aria-expanded="true" aria-controls="body-profile">
+      <h2 class="section-label">01 · Profile</h2>
+      <span class="section-toggle" aria-hidden="true">▾</span>
+    </div>
+    <div class="section-body" id="body-profile">
+      <p class="profile-text">A seasoned executive with nearly two decades of leadership across global operations, digital transformation, and AI-driven strategy. Proven track record of building and scaling high-performance organisations across regulated industries, public sector, and multinational technology environments. Currently leading Kneuralabs — an AI systems and governance advisory firm — with a mandate to operationalise responsible AI adoption through structured oversight, risk classification, and enterprise-grade delivery frameworks. Brings a rare combination of delivery excellence, commercial acumen, and forward-looking technology vision to the boardroom.</p>
+    </div>
+  </section>
+
+  <!-- COMPETENCIES -->
+  <section class="section-card reveal reveal-3" id="sec-competencies">
+    <div class="section-head" role="button" tabindex="0" aria-expanded="true" aria-controls="body-competencies">
+      <h2 class="section-label">02 · Core Competencies</h2>
+      <span class="section-toggle" aria-hidden="true">▾</span>
+    </div>
+    <div class="section-body" id="body-competencies">
+      <div class="competencies">
+        <div class="competency">AI governance — regulatory &amp; public sector</div>
+        <div class="competency">Claude &amp; Anthropic ecosystem (API, MCP, agents)</div>
+        <div class="competency">Bid strategy &amp; enterprise sales</div>
+        <div class="competency">AI-powered creative production</div>
+        <div class="competency">Product strategy &amp; roadmap leadership</div>
+        <div class="competency">Global delivery &amp; service management</div>
+        <div class="competency">NIST AI RMF · ISO/IEC 42001 · EU AI Act</div>
+        <div class="competency">AWS cloud migration &amp; cost optimisation</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="section-card reveal reveal-4" id="sec-experience">
+    <div class="section-head" role="button" tabindex="0" aria-expanded="true" aria-controls="body-experience">
+      <h2 class="section-label">03 · Experience</h2>
+      <span class="section-toggle" aria-hidden="true">▾</span>
+    </div>
+    <div class="section-body" id="body-experience" style="padding:0">
+
+      <!-- View toggle -->
+      <div class="view-toggle" role="group" aria-label="Experience view">
+        <button class="vt-btn active" id="btn-list">LIST</button>
+        <button class="vt-btn" id="btn-timeline">TIMELINE</button>
+      </div>
+
+      <!-- ── LIST VIEW ── -->
+      <div id="list-view" style="padding:1.25rem clamp(1.25rem,4vw,2rem) 1.5rem">
+
+        <article class="role">
+          <div class="role-meta">
+            <h3 class="role-title">Co-Founder &amp; CEO</h3>
+            <span class="role-date">Feb 2026 – Present</span>
+          </div>
+          <p class="role-org"><strong>Kneuralabs LLC</strong> · Connecticut, USA</p>
+          <ul class="role-bullets">
+            <li>Built the governance layer before the AI did damage — structured adoption frameworks for U.S. mid-market enterprises and public sector clients.</li>
+            <li>Designed oversight systems aligned to NIST AI RMF, ISO/IEC 42001, and EU AI Act that regulators can actually audit.</li>
+            <li>Positioning Kneuralabs as the structural AI governance partner for CROs, CTOs, and General Counsel navigating compliance-first deployment.</li>
+          </ul>
+        </article>
+
+        <article class="role">
+          <div class="role-meta">
+            <h3 class="role-title">Co-Founder &amp; Managing Partner</h3>
+            <span class="role-date">Sep 2020 – Present</span>
+          </div>
+          <p class="role-org"><strong>Ocelli Arts</strong> · Kolkata, India</p>
+          <ul class="role-bullets">
+            <li>Ran an AI-driven creative studio from day one — before it was a trend. Delivered UX, 3D, animation, and VFX for U.S. clients with on-site engagement in the United States.</li>
+            <li>Implemented AI-augmented workflows using Figma AI, Midjourney, Runway, and LangChain — significantly reducing turnaround times while elevating output quality.</li>
+            <li>Translated creative briefs into measurable business outcomes for cross-border clients, managing international engagements end-to-end.</li>
+          </ul>
+        </article>
+
+        <article class="role">
+          <div class="role-meta">
+            <h3 class="role-title">Director, Product Strategy</h3>
+            <span class="role-date">Sep 2021 – Nov 2021</span>
+          </div>
+          <p class="role-org"><strong>Cinch Software</strong> · Kolkata, India</p>
+          <ul class="role-bullets">
+            <li>Defined the product roadmap, pricing architecture, and market positioning from first principles in a short, high-intensity strategic engagement.</li>
+          </ul>
+        </article>
+
+        <article class="role">
+          <div class="role-meta">
+            <h3 class="role-title">Manager, Strategic BD &amp; Digital Product Marketing</h3>
+            <span class="role-date">Jun 2015 – Sep 2021</span>
+          </div>
+          <p class="role-org"><strong>Cognizant</strong> · Kolkata, India</p>
+          <ul class="role-bullets">
+            <li>Reduced infrastructure costs by 18% migrating a U.S. retail client to AWS — retained the account and expanded the engagement.</li>
+            <li>Won bids across Retail, BFSI, and Technology verticals by writing proposals clients actually wanted to sign.</li>
+            <li>Led digital product marketing strategy, aligning sales narratives to measurable business outcomes.</li>
+          </ul>
+        </article>
+
+        <article class="role">
+          <div class="role-meta">
+            <h3 class="role-title">Global Service Management Lead — Europe &amp; Latin America</h3>
+            <span class="role-date">Aug 2011 – May 2015</span>
+          </div>
+          <p class="role-org"><strong>Accenture</strong> · Kolkata, India</p>
+          <ul class="role-bullets">
+            <li>Held enterprise-wide service management accountability spanning 14 international delivery centres across Europe and Latin America.</li>
+            <li>Led the ISA Industrialisation Programme — a global delivery transformation initiative driving cost efficiencies and performance improvements across infrastructure services.</li>
+            <li>Championed value-creation and continuous improvement programmes, elevating service quality across a large, geographically distributed workforce. Recognised with the Accenture ACE Award.</li>
+          </ul>
+        </article>
+
+        <article class="role">
+          <div class="role-meta">
+            <h3 class="role-title">Delivery Excellence &amp; Infrastructure Roles</h3>
+            <span class="role-date">Nov 2006 – Jul 2011</span>
+          </div>
+          <p class="role-org"><strong>Accenture</strong> · Chennai, India</p>
+          <ul class="role-bullets">
+            <li>Progressive roles in Delivery Excellence, Infrastructure Services, and Senior Process Consulting — building the operational foundation that underpins all subsequent senior leadership.</li>
+          </ul>
+        </article>
+
+        <article class="role">
+          <div class="role-meta">
+            <h3 class="role-title">Quality &amp; Process Management Roles</h3>
+            <span class="role-date">Nov 2006 – Jul 2011</span>
+          </div>
+          <p class="role-org"><strong>Cognizant · Patni Computer Systems · Siemens · IGATE</strong> · Mumbai &amp; Chennai</p>
+          <ul class="role-bullets">
+            <li>Built quality and process management foundations — CMMI, Six Sigma, ITIL — across large-scale enterprise environments.</li>
+          </ul>
+        </article>
+
+      </div><!-- /list-view -->
+
+      <!-- ── INTERACTIVE TIMELINE VIEW ── -->
+      <div id="timeline-view">
+        <div class="tl-spine"></div>
+
+        <!-- 2026 — Kneuralabs -->
+        <div class="tl-item" data-idx="0">
+          <div class="tl-year-badge">2026<br>NOW</div>
+          <div class="tl-dot"></div>
+          <div class="tl-header">
+            <div>
+              <div class="tl-role">Co-Founder &amp; CEO</div>
+              <div class="tl-org"><strong>Kneuralabs LLC</strong> · Connecticut, USA</div>
+              <span class="tl-tag current">● ACTIVE</span>
+            </div>
+            <span class="tl-chevron">▾</span>
+          </div>
+          <div class="tl-detail">
+            <ul class="tl-bullets">
+              <li>Built the governance layer before the AI did damage — structured adoption frameworks for U.S. mid-market enterprises and public sector clients.</li>
+              <li>Designed oversight systems aligned to NIST AI RMF, ISO/IEC 42001, and EU AI Act that regulators can actually audit.</li>
+              <li>Positioning Kneuralabs as the structural AI governance partner for CROs, CTOs, and General Counsel.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 2021 — Cinch (most recent prior to Kneuralabs, in reverse-chron) -->
+        <div class="tl-item" data-idx="1">
+          <div class="tl-year-badge">2021<br>NOV</div>
+          <div class="tl-dot"></div>
+          <div class="tl-header">
+            <div>
+              <div class="tl-role">Director, Product Strategy</div>
+              <div class="tl-org"><strong>Cinch Software</strong> · Kolkata, India</div>
+              <span class="tl-tag">Sep – Nov 2021</span>
+            </div>
+            <span class="tl-chevron">▾</span>
+          </div>
+          <div class="tl-detail">
+            <ul class="tl-bullets">
+              <li>Defined the product roadmap, pricing architecture, and market positioning from first principles in a high-intensity strategic engagement.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 2020 — Ocelli Arts (ongoing, started before Cinch) -->
+        <div class="tl-item" data-idx="2">
+          <div class="tl-year-badge">2020<br>SEP</div>
+          <div class="tl-dot"></div>
+          <div class="tl-header">
+            <div>
+              <div class="tl-role">Co-Founder &amp; Managing Partner</div>
+              <div class="tl-org"><strong>Ocelli Arts</strong> · Kolkata, India</div>
+              <span class="tl-tag current">● ACTIVE</span>
+            </div>
+            <span class="tl-chevron">▾</span>
+          </div>
+          <div class="tl-detail">
+            <ul class="tl-bullets">
+              <li>Ran an AI-driven creative studio from day one. Delivered UX, 3D, animation, and VFX for U.S. clients with on-site engagement in the United States.</li>
+              <li>Implemented AI-augmented workflows: Figma AI, Midjourney, Runway, LangChain — significantly reducing turnaround times and elevating output quality.</li>
+              <li>Translated creative briefs into measurable business outcomes for cross-border clients.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 2015–2021 Cognizant -->
+        <div class="tl-item" data-idx="3">
+          <div class="tl-year-badge">2015<br>2021</div>
+          <div class="tl-dot"></div>
+          <div class="tl-header">
+            <div>
+              <div class="tl-role">Manager, Strategic BD &amp; Digital Product Marketing</div>
+              <div class="tl-org"><strong>Cognizant</strong> · Kolkata, India</div>
+              <span class="tl-tag">6 years</span>
+            </div>
+            <span class="tl-chevron">▾</span>
+          </div>
+          <div class="tl-detail">
+            <ul class="tl-bullets">
+              <li>Reduced infrastructure costs by 18% migrating a U.S. retail client to AWS — retained the account and expanded the engagement.</li>
+              <li>Won bids across Retail, BFSI, and Technology verticals by writing proposals clients actually wanted to sign.</li>
+              <li>Led digital product marketing strategy, aligning sales narratives to measurable business outcomes.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 2011–2015 Accenture -->
+        <div class="tl-item" data-idx="4">
+          <div class="tl-year-badge">2011<br>2015</div>
+          <div class="tl-dot"></div>
+          <div class="tl-header">
+            <div>
+              <div class="tl-role">Global Service Management Lead — Europe &amp; Latin America</div>
+              <div class="tl-org"><strong>Accenture</strong> · Kolkata, India</div>
+              <span class="tl-tag">4 years · ACE Award</span>
+            </div>
+            <span class="tl-chevron">▾</span>
+          </div>
+          <div class="tl-detail">
+            <ul class="tl-bullets">
+              <li>Enterprise-wide service management across 14 international delivery centres across Europe and Latin America.</li>
+              <li>Led the ISA Industrialisation Programme — global delivery transformation driving cost efficiencies and performance improvements. Recognised with Accenture ACE Award.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 2006–2011 Accenture early -->
+        <div class="tl-item" data-idx="5">
+          <div class="tl-year-badge">2006<br>2011</div>
+          <div class="tl-dot"></div>
+          <div class="tl-header">
+            <div>
+              <div class="tl-role">Delivery Excellence &amp; Infrastructure Roles</div>
+              <div class="tl-org"><strong>Accenture</strong> · Chennai, India</div>
+              <span class="tl-tag">5 years</span>
+            </div>
+            <span class="tl-chevron">▾</span>
+          </div>
+          <div class="tl-detail">
+            <ul class="tl-bullets">
+              <li>Progressive roles in Delivery Excellence, Infrastructure Services, and Senior Process Consulting — building the operational foundation for all subsequent senior leadership.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 2006–2011 Other early -->
+        <div class="tl-item" data-idx="6">
+          <div class="tl-year-badge">2006<br>2011</div>
+          <div class="tl-dot"></div>
+          <div class="tl-header">
+            <div>
+              <div class="tl-role">Quality &amp; Process Management Roles</div>
+              <div class="tl-org"><strong>Cognizant · Patni · Siemens · IGATE</strong> · Mumbai &amp; Chennai</div>
+              <span class="tl-tag">5 years</span>
+            </div>
+            <span class="tl-chevron">▾</span>
+          </div>
+          <div class="tl-detail">
+            <ul class="tl-bullets">
+              <li>Built quality and process management foundations — CMMI, Six Sigma, ITIL — across large-scale enterprise environments.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div><!-- /timeline-view -->
+
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section class="section-card reveal reveal-5" id="sec-certifications">
+    <div class="section-head" role="button" tabindex="0" aria-expanded="true" aria-controls="body-certs">
+      <h2 class="section-label">04 · Certifications</h2>
+      <span class="section-toggle" aria-hidden="true">▾</span>
+    </div>
+    <div class="section-body" id="body-certs">
+
+      <div class="cert-group">
+        <p class="cert-issuer">
+          Anthropic
+          <span class="cert-badge">4 certifications</span>
+          <small>anthropic.skilljar.com</small>
+        </p>
+        <div class="cert-list">
+          <div class="cert-row"><span class="cert-name">Introduction to Agent Skills</span><span class="cert-date">Mar 2026</span><span class="cert-id">cz59oi3ru2dc</span></div>
+          <div class="cert-row"><span class="cert-name">Building with the Claude API</span><span class="cert-date">Mar 2026</span><span class="cert-id">2aetauah6zp6</span></div>
+          <div class="cert-row"><span class="cert-name">AI Fluency: Framework &amp; Foundations</span><span class="cert-date">Mar 2026</span><span class="cert-id">nt4i69rxmywy</span></div>
+          <div class="cert-row"><span class="cert-name">Claude 101</span><span class="cert-date">Mar 2026</span><span class="cert-id">wwm9suhsnhvj</span></div>
+        </div>
+      </div>
+
+      <div class="cert-group">
+        <p class="cert-issuer">ISACA</p>
+        <div class="cert-list">
+          <div class="cert-row"><span class="cert-name">Auditing Generative AI: Strategy, Analysis &amp; Risk Mitigation</span><span class="cert-date">Feb 2026</span><span class="cert-id">EY5P5V066F3A</span></div>
+        </div>
+      </div>
+
+      <div class="cert-group">
+        <p class="cert-issuer">Professional Qualifications</p>
+        <div class="cert-list">
+          <div class="cert-row"><span class="cert-name">ISO 20000 Lead Auditor — IT Service Certification</span><span class="cert-date">May 2012</span><span class="cert-id">BSI</span></div>
+          <div class="cert-row"><span class="cert-name">IT Information Library Foundations (ITIL)</span><span class="cert-date">Nov 2006</span><span class="cert-id">EXIN</span></div>
+          <div class="cert-row"><span class="cert-name">Bulletproof Manager</span><span class="cert-date">Mar 2010</span><span class="cert-id">Cresco International</span></div>
+        </div>
+      </div>
+
+      <div class="cert-group">
+        <p class="cert-issuer" style="color:var(--ink-3);font-weight:400">Professional Development</p>
+        <div class="cert-list">
+          <div class="cert-row"><span class="cert-name">Digital Product Management: Modern Fundamentals</span><span class="cert-date">May 2019</span><span class="cert-id">UVA Darden</span></div>
+          <div class="cert-row"><span class="cert-name">Successful Negotiation: Essential Strategies &amp; Skills</span><span class="cert-date">May 2019</span><span class="cert-id">U Michigan Ross</span></div>
+          <div class="cert-row"><span class="cert-name">Moral Foundations of Politics</span><span class="cert-date"></span><span class="cert-id"></span></div>
+          <div class="cert-row"><span class="cert-name">Final Cut Pro X: Commercial Editing</span><span class="cert-date"></span><span class="cert-id"></span></div>
+          <div class="cert-row"><span class="cert-name">Small Business Marketing with Facebook</span><span class="cert-date"></span><span class="cert-id"></span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="section-card reveal reveal-6" id="sec-education">
+    <div class="section-head" role="button" tabindex="0" aria-expanded="true" aria-controls="body-education">
+      <h2 class="section-label">05 · Education</h2>
+      <span class="section-toggle" aria-hidden="true">▾</span>
+    </div>
+    <div class="section-body" id="body-education">
+      <div class="edu-row">
+        <div><span class="edu-degree">Business Management (Mini MBA)</span><span class="edu-inst">IBMI · Berlin, Germany</span></div>
+        <span class="edu-year">2019</span>
+      </div>
+      <div class="edu-row">
+        <div><span class="edu-degree">PG Diploma, Software Engineering</span><span class="edu-inst">Bournemouth University · Bournemouth, UK</span></div>
+        <span class="edu-year">2004 – 2005</span>
+      </div>
+      <div class="edu-row">
+        <div><span class="edu-degree">BCom, Accountancy</span><span class="edu-inst">University of Calcutta · Kolkata, India</span></div>
+        <span class="edu-year">1994 – 1996</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECOGNITION -->
+  <section class="section-card reveal reveal-7" id="sec-recognition" style="margin-bottom:0">
+    <div class="section-head" role="button" tabindex="0" aria-expanded="true" aria-controls="body-recognition">
+      <h2 class="section-label">06 · Recognition</h2>
+      <span class="section-toggle" aria-hidden="true">▾</span>
+    </div>
+    <div class="section-body" id="body-recognition">
+      <div class="recognition">
+        <div class="rec-item">Accenture ACE Award — outstanding delivery performance &amp; operational excellence</div>
+        <div class="rec-item">Publication — The Art of Asking Questions</div>
+        <div class="rec-item">Publication — Governing Intelligence</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="padding:1.5rem 0 .5rem;text-align:center">
+    <p style="font-family:var(--mono);font-size:.6rem;color:var(--ink-4);letter-spacing:.08em">
+      KNEURALABS LLC · STRUCTURAL AI GOVERNANCE · KN_PG_CV_202604.html
+    </p>
+  </footer>
+
+</main>
+</div>
+
+<script>
+(function(){
+  // ── Theme toggle ─────────────────────────────────────────────────
+  const html = document.documentElement;
+  const themeBtn = document.getElementById('theme-btn');
+  const saved = localStorage.getItem('cv-theme') || 'light';
+  html.setAttribute('data-theme', saved);
+  themeBtn.textContent = saved === 'dark' ? '☀️' : '🌙';
+  themeBtn.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    themeBtn.textContent = next === 'dark' ? '☀️' : '🌙';
+    localStorage.setItem('cv-theme', next);
+  });
+
+  // ── Print ─────────────────────────────────────────────────────────
+  document.getElementById('print-btn').addEventListener('click', () => window.print());
+
+  // ── Expand/collapse all ───────────────────────────────────────────
+  let allExpanded = true;
+  const expandBtn = document.getElementById('expand-btn');
+  expandBtn.addEventListener('click', () => {
+    allExpanded = !allExpanded;
+    document.querySelectorAll('.section-card').forEach(card => {
+      allExpanded ? card.classList.remove('collapsed') : card.classList.add('collapsed');
+      const head = card.querySelector('.section-head');
+      head && head.setAttribute('aria-expanded', String(allExpanded));
+    });
+    expandBtn.textContent = allExpanded ? '＋' : '＝';
+  });
+
+  // ── Section collapse ──────────────────────────────────────────────
+  document.querySelectorAll('.section-head').forEach(head => {
+    const toggle = () => {
+      const card = head.closest('.section-card');
+      const isCollapsed = card.classList.toggle('collapsed');
+      head.setAttribute('aria-expanded', String(!isCollapsed));
+    };
+    head.addEventListener('click', toggle);
+    head.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();} });
+  });
+
+  // ── Experience view toggle ────────────────────────────────────────
+  const listView = document.getElementById('list-view');
+  const tlView   = document.getElementById('timeline-view');
+  const btnList  = document.getElementById('btn-list');
+  const btnTl    = document.getElementById('btn-timeline');
+  btnList.addEventListener('click', () => {
+    listView.style.display='block'; tlView.style.display='none';
+    btnList.classList.add('active'); btnTl.classList.remove('active');
+  });
+  btnTl.addEventListener('click', () => {
+    listView.style.display='none'; tlView.style.display='block';
+    btnTl.classList.add('active'); btnList.classList.remove('active');
+  });
+
+  // ── Interactive timeline items ────────────────────────────────────
+  document.querySelectorAll('.tl-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const isActive = item.classList.contains('active');
+      // Close all
+      document.querySelectorAll('.tl-item').forEach(i => i.classList.remove('active'));
+      // Toggle clicked
+      if(!isActive) item.classList.add('active');
+    });
+  });
+  // Open first item by default
+  const firstTl = document.querySelector('.tl-item');
+  if(firstTl) firstTl.classList.add('active');
+
+  // ── Copy to clipboard ─────────────────────────────────────────────
+  document.querySelectorAll('.contact-copy').forEach(btn => {
+    btn.addEventListener('click', async e => {
+      e.stopPropagation();
+      try {
+        await navigator.clipboard.writeText(btn.dataset.copy);
+      } catch(err) {
+        const ta = document.createElement('textarea');
+        ta.value=btn.dataset.copy; ta.style.cssText='position:fixed;opacity:0';
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
+      const orig = btn.textContent;
+      btn.textContent='✓'; btn.classList.add('copied');
+      setTimeout(()=>{btn.textContent=orig;btn.classList.remove('copied');},1800);
+    });
+  });
+
+  // ── Sticky nav ────────────────────────────────────────────────────
+  const sticky   = document.getElementById('sticky');
+  const header   = document.getElementById('top');
+  const navLinks = document.querySelectorAll('.sticky-nav a');
+  const sections = Array.from(document.querySelectorAll('section[id]'));
+
+  new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(!e.isIntersecting && e.boundingClientRect.top < 0) sticky.classList.add('visible');
+      if(e.isIntersecting && e.target === header) sticky.classList.remove('visible');
+    });
+  },{threshold:0}).observe(header);
+
+  new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href')==='#'+e.target.id));
+      }
+    });
+  },{rootMargin:'-40% 0px -50% 0px'}).observe && sections.forEach(s =>
+    new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if(e.isIntersecting)
+          navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href')==='#'+e.target.id));
+      });
+    },{rootMargin:'-40% 0px -50% 0px'}).observe(s)
+  );
+
+})();
+</script>
+</body>
+</html>
