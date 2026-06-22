@@ -1238,33 +1238,32 @@ body.print-1page{
     localStorage.setItem('cv-theme',next);
   });
 
-  document.getElementById('print-btn')?.addEventListener('click',()=>window.print());
+  // ── Collapsible groups: section cards and cert groups share one state model ──
+  const SECTION_GROUP={head:'.section-head',toggle:'.section-toggle'};
+  const CERT_GROUP={head:'.cert-group-head',toggle:'.cert-group-toggle'};
+  const isCollapsed=el=>el.classList.contains('collapsed');
+  // Single source of truth for collapse state, ARIA, and the +/− glyph.
+  function setCollapsed(el,collapsed,cfg){
+    el.classList.toggle('collapsed',collapsed);
+    const head=el.querySelector(cfg.head);if(head)head.setAttribute('aria-expanded',String(!collapsed));
+    const t=el.querySelector(cfg.toggle);if(t)t.textContent=collapsed?'＋':'−';
+  }
+  function setAllCollapsed(collapsed){
+    document.querySelectorAll('.section-card').forEach(el=>setCollapsed(el,collapsed,SECTION_GROUP));
+    document.querySelectorAll('[data-cert-group]').forEach(el=>setCollapsed(el,collapsed,CERT_GROUP));
+  }
 
   let allExpanded=true;
   const expandBtn=document.getElementById('expand-btn');
   expandBtn?.addEventListener('click',()=>{
     allExpanded=!allExpanded;
-    document.querySelectorAll('.section-card').forEach(card=>{
-      allExpanded?card.classList.remove('collapsed'):card.classList.add('collapsed');
-      const head=card.querySelector('.section-head');head&&head.setAttribute('aria-expanded',String(allExpanded));
-      const t=card.querySelector('.section-toggle');if(t)t.textContent=allExpanded?'−':'＋';
-    });
-    document.querySelectorAll('[data-cert-group]').forEach(group=>{
-      allExpanded?group.classList.remove('collapsed'):group.classList.add('collapsed');
-      const head=group.querySelector('.cert-group-head');head&&head.setAttribute('aria-expanded',String(allExpanded));
-      const t=group.querySelector('.cert-group-toggle');if(t)t.textContent=allExpanded?'−':'＋';
-    });
-    if(expandBtn)expandBtn.textContent=allExpanded?'−':'＋';
+    setAllCollapsed(!allExpanded);
+    expandBtn.textContent=allExpanded?'−':'＋';
   });
 
-  document.querySelectorAll('.section-head').forEach(head=>{
-    const toggle=()=>{
-      const card=head.closest('.section-card');
-      const isCollapsed=card.classList.toggle('collapsed');
-      head.setAttribute('aria-expanded',String(!isCollapsed));
-      const t=head.querySelector('.section-toggle');
-      if(t)t.textContent=isCollapsed?'＋':'−';
-    };
+  document.querySelectorAll('.section-card').forEach(card=>{
+    const head=card.querySelector(SECTION_GROUP.head);if(!head)return;
+    const toggle=()=>setCollapsed(card,!isCollapsed(card),SECTION_GROUP);
     head.addEventListener('click',toggle);
     head.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}});
   });
@@ -1273,6 +1272,10 @@ body.print-1page{
   document.querySelectorAll('.contact-copy').forEach(btn=>{
     btn.addEventListener('click',async e=>{
       e.stopPropagation();
+      // spring pop
+      btn.style.transition='transform .3s cubic-bezier(.34,1.56,.64,1)';
+      btn.style.transform='scale(1.5)';
+      setTimeout(()=>{btn.style.transform='';},300);
       try{await navigator.clipboard.writeText(btn.dataset.copy);}
       catch(err){const ta=document.createElement('textarea');ta.value=btn.dataset.copy;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);}
       btn.innerHTML='✓';btn.classList.add('copied');
@@ -1311,17 +1314,7 @@ body.print-1page{
   document.getElementById('pdf-print')?.addEventListener('click',()=>{
     const is1page = pdfMode==='1page';
     pdfModal.classList.remove('open');
-    // expand all sections before printing
-    document.querySelectorAll('.section-card').forEach(c=>{
-      c.classList.remove('collapsed');
-      const h=c.querySelector('.section-head');h&&h.setAttribute('aria-expanded','true');
-      const t=c.querySelector('.section-toggle');if(t)t.textContent='−';
-    });
-    document.querySelectorAll('[data-cert-group]').forEach(g=>{
-      g.classList.remove('collapsed');
-      const h=g.querySelector('.cert-group-head');h&&h.setAttribute('aria-expanded','true');
-      const t=g.querySelector('.cert-group-toggle');if(t)t.textContent='−';
-    });
+    setAllCollapsed(false); // expand everything before printing
     if(is1page){document.body.classList.add('print-1page');}
     else{document.body.classList.remove('print-1page');}
     setTimeout(()=>{
@@ -1329,20 +1322,12 @@ body.print-1page{
       document.body.classList.remove('print-1page');
     },350);
   });
-  // ── Cert accordion ──
+  // ── Cert accordion ── (honours the initial aria-expanded authored in markup)
   document.querySelectorAll('[data-cert-group]').forEach(group=>{
-    const head=group.querySelector('.cert-group-head');
-    const expanded=head.getAttribute('aria-expanded')==='true';
-    const t=head.querySelector('.cert-group-toggle');
-    if(!expanded){group.classList.add('collapsed');if(t)t.textContent='＋';}
-    head.addEventListener('click',()=>{
-      const isCollapsed=group.classList.toggle('collapsed');
-      head.setAttribute('aria-expanded',String(!isCollapsed));
-      if(t)t.textContent=isCollapsed?'＋':'−';
-    });
-    head.addEventListener('keydown',e=>{
-      if(e.key==='Enter'||e.key===' '){e.preventDefault();head.click();}
-    });
+    const head=group.querySelector(CERT_GROUP.head);if(!head)return;
+    if(head.getAttribute('aria-expanded')!=='true')setCollapsed(group,true,CERT_GROUP);
+    head.addEventListener('click',()=>setCollapsed(group,!isCollapsed(group),CERT_GROUP));
+    head.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();head.click();}});
   });
 
   /* ── Ambient orb follows mouse ── */
@@ -1448,15 +1433,6 @@ body.print-1page{
     });
   },{threshold:.15});
   document.querySelectorAll('.section-card').forEach(c=>depthObs.observe(c));
-
-  /* ── Copy button spring pop ── */
-  document.querySelectorAll('.contact-copy').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      btn.style.transition='transform .3s cubic-bezier(.34,1.56,.64,1)';
-      btn.style.transform='scale(1.5)';
-      setTimeout(()=>{btn.style.transform='';},300);
-    });
-  });
 
 })();
 </script>
