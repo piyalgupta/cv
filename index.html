@@ -313,7 +313,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1
 /* ── Section card ── */
 .section-card{
   background:var(--card);border:1px solid var(--rule);border-radius:var(--r-card);
-  margin-bottom:1rem;overflow:hidden;transition:background .3s,border-color .3s;
+  margin-bottom:1rem;overflow:hidden;transition:background .3s,border-color .3s,box-shadow .4s cubic-bezier(.16,1,.3,1);
 }
 .section-head{
   display:flex;align-items:center;justify-content:space-between;
@@ -1290,13 +1290,15 @@ body.print-1page{
   const pdfOptions=document.querySelectorAll('.pdf-option');
   let pdfMode='1page';
 
-  document.getElementById('pdf-export-btn')?.addEventListener('click',()=>{
-    pdfModal.classList.add('open');
-    pdfOptions[0].focus();
-  });
-  document.getElementById('pdf-cancel')?.addEventListener('click',()=>pdfModal.classList.remove('open'));
-  pdfModal.addEventListener('click',e=>{if(e.target===pdfModal)pdfModal.classList.remove('open');});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape')pdfModal.classList.remove('open');});
+  if(pdfModal){
+    document.getElementById('pdf-export-btn')?.addEventListener('click',()=>{
+      pdfModal.classList.add('open');
+      pdfOptions[0]?.focus();
+    });
+    document.getElementById('pdf-cancel')?.addEventListener('click',()=>pdfModal.classList.remove('open'));
+    pdfModal.addEventListener('click',e=>{if(e.target===pdfModal)pdfModal.classList.remove('open');});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')pdfModal.classList.remove('open');});
+  }
 
   pdfOptions.forEach(btn=>{
     btn.addEventListener('click',()=>{
@@ -1349,7 +1351,8 @@ body.print-1page{
     let ox=window.innerWidth/2,oy=window.innerHeight/2;
     document.addEventListener('mousemove',e=>{
       ox+=(e.clientX-ox)*.06;oy+=(e.clientY-oy)*.06;
-      orb.style.left=ox+'px';orb.style.top=(oy+window.scrollY)+'px';
+      // .orb is position:fixed, so top/left are viewport-relative — must NOT add scrollY
+      orb.style.left=ox+'px';orb.style.top=oy+'px';
     },{passive:true});
   }
 
@@ -1373,15 +1376,15 @@ body.print-1page{
   addMagneticTilt('.cs-stat');
 
   /* ── Animated stat counters ── */
-  function animateCounter(el,target,suffix,duration){
-    const isFloat=target!==Math.floor(target);
+  function animateCounter(el,target,prefix,suffix,decimals,duration){
     let start=null;
     const step=ts=>{
       if(!start)start=ts;
       const p=Math.min((ts-start)/duration,1);
       const ease=1-Math.pow(1-p,4);
-      const val=isFloat?(target*ease).toFixed(0)+'%':Math.round(target*ease);
-      el.textContent=val+(suffix||'');
+      const cur=target*ease;
+      const body=decimals>0?cur.toFixed(decimals):String(Math.round(cur));
+      el.textContent=prefix+body+suffix;
       if(p<1)requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
@@ -1392,9 +1395,16 @@ body.print-1page{
       const el=e.target.querySelector('.cs-num');
       if(!el||el.dataset.animated)return;
       el.dataset.animated='1';
-      const raw=el.textContent.trim();
-      const num=parseFloat(raw);
-      if(!isNaN(num))animateCounter(el,num,raw.replace(String(num),''),900);
+      // Split into [prefix][number][suffix] so units ($, %, x, M…) and decimals survive the count-up
+      const m=el.textContent.trim().match(/^([^\d.+-]*)(-?[\d,]*\.?\d+)(.*)$/);
+      if(m){
+        const numStr=m[2].replace(/,/g,'');
+        const num=parseFloat(numStr);
+        if(!isNaN(num)){
+          const decimals=(numStr.split('.')[1]||'').length;
+          animateCounter(el,num,m[1],m[3],decimals,900);
+        }
+      }
       statsObserver.unobserve(e.target);
     });
   },{threshold:.3});
@@ -1433,7 +1443,7 @@ body.print-1page{
   /* ── Scroll-linked section card shadow depth ── */
   const depthObs=new IntersectionObserver(entries=>{
     entries.forEach(e=>{
-      e.target.style.transition+=' ,box-shadow .4s cubic-bezier(.16,1,.3,1)';
+      // box-shadow transition is defined in CSS on .section-card; only toggle the value here
       e.target.style.boxShadow=e.isIntersecting?'0 4px 24px rgba(0,0,0,.06)':'none';
     });
   },{threshold:.15});
